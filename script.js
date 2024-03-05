@@ -25,22 +25,6 @@ $(window).on("beforeunload", function () {
 
 // --- GLOBAL - FADE
 function fade() {
-  // gsap.set("[fade]", { autoAlpha: 0, yPercent: 25 });
-
-  // ScrollTrigger.batch("[fade]", {
-  //   once: true,
-  //   onEnter: (batch) =>
-  //     gsap.to(batch, {
-  //       autoAlpha: 1,
-  //       yPercent: 0,
-  //       duration: 1.2,
-  //       ease: "power3.out",
-  //       stagger: 0.1,
-  //     }),
-  // });
-
-  //
-
   gsap.set("[fade]", { opacity: 0, y: "4em" });
 
   let elements = $("[fade]");
@@ -51,19 +35,20 @@ function fade() {
       onEnter: function () {
         staggerAnimation(element, index);
       },
-      once: true
+      once: true,
     });
   });
 
   function staggerAnimation(element, index) {
     gsap.fromTo(
-      element, { autoAlpha: 0, y: "4em" },
+      element,
+      { autoAlpha: 0, y: "4em" },
       {
         autoAlpha: 1,
         y: 0,
         duration: 1,
         ease: "power4.out",
-        delay: index * 0.05
+        delay: index * 0.05,
       }
     );
   }
@@ -71,30 +56,36 @@ function fade() {
 
 // --- GLOBAL - PARALLAX
 function parallax() {
-  gsap.utils.toArray('[parallax-container]').forEach(container => {
-    const img = container.querySelector('.c-img');
+  gsap.utils.toArray("[parallax-container]").forEach((container) => {
+    const img = container.querySelector(".c-img");
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         scrub: true,
-      }
+      },
     });
 
-    tl.fromTo(img, {
-      yPercent: -5,
-      ease: 'none'
-    }, {
-      yPercent: 5,
-      ease: 'none'
-    });
+    tl.fromTo(
+      img,
+      {
+        yPercent: -5,
+        ease: "none",
+      },
+      {
+        yPercent: 5,
+        ease: "none",
+      }
+    );
   });
 }
 
 // --- GLOBAL - BUTTONS HOVER EFFECT
 function buttonHover() {
   $("[data-btn='wrap']").each(function () {
-    const clipEl = $(this).find("[data-btn='clip']").attr("aria-hidden", "true");
+    const clipEl = $(this)
+      .find("[data-btn='clip']")
+      .attr("aria-hidden", "true");
     const durationSetting = 0.4;
     const easeSetting = "power2.inOut";
 
@@ -117,15 +108,18 @@ function buttonHover() {
       let percentLeft = getPercentLeft($(this), e);
       gsap.set(clipEl, { display: "flex" });
       gsap.fromTo(
-        clipEl, { clipPath: `circle(0% at ${percentLeft}% ${percentTop}%)` }, {
+        clipEl,
+        { clipPath: `circle(0% at ${percentLeft}% ${percentTop}%)` },
+        {
           clipPath: `circle(141.4% at ${percentLeft}% ${percentTop}%)`,
           duration: durationSetting,
-          ease: easeSetting
-        });
+          ease: easeSetting,
+        }
+      );
       gsap.to($(this), {
         border: "1px solid rgba(253, 109, 16, 0.90)",
         duration: durationSetting,
-        ease: easeSetting
+        ease: easeSetting,
       });
     });
     $(this).on("mouseleave", function (e) {
@@ -135,12 +129,12 @@ function buttonHover() {
         clipPath: `circle(0% at ${percentLeft}% ${percentTop}%)`,
         overwrite: true,
         duration: durationSetting,
-        ease: easeSetting
+        ease: easeSetting,
       });
       gsap.to($(this), {
         border: initialBorderColor,
         duration: durationSetting,
-        ease: easeSetting
+        ease: easeSetting,
       });
     });
   });
@@ -186,11 +180,13 @@ function headerScroll() {
 // --- CLIENTS - MARQUEE
 function clientMarquee() {
   let marquerDuration = $(".c-marquee-item").length * 6;
-  let tl = gsap.timeline({ defaults: { ease: "none", repeat: -1, duration: marquerDuration } });
+  let tl = gsap.timeline({
+    defaults: { ease: "none", repeat: -1, duration: marquerDuration },
+  });
 
   $(".c-marquee-list").clone().appendTo(".c-marquee-wrap");
 
-  tl.to(".c-marquee-list", { x: "-100%" })
+  tl.to(".c-marquee-list", { x: "-100%" });
 }
 
 // --- CLIENTS - MARQUE LIGHT
@@ -207,15 +203,17 @@ function marqueeLight() {
 
 // --- CLIENTS - MARQUEE HOVER
 function marqueeItemHover() {
-
   $(".c-marquee-item").each(function () {
-    let tl = gsap.timeline({ paused: true, defaults: { ease: "power3.inOut", duration: 1 } });
+    let tl = gsap.timeline({
+      paused: true,
+      defaults: { ease: "power3.inOut", duration: 1 },
+    });
 
     tl.to($(this), {
       "--marquee-item-odd-opacity": 0.3,
       "--marquee-item-even-opacity": 0.4,
       "--marquee-item-odd-light": "100%",
-      "--marquee-item-even-light": "100%"
+      "--marquee-item-even-light": "100%",
     });
 
     $(this).on("mouseenter", function () {
@@ -237,19 +235,32 @@ function productImageTeleport() {
       end: "top 10%",
       endTrigger: ".c-block-item.featured",
       scrub: true,
-    }
+    },
   });
 
-  tl.fromTo(".c-img-contain.product-location", { y: "-48.8em" }, { y: "13.5em", ease: "none" });
-  tl.fromTo(".c-img-contain.product-control", { rotation: 7, y: "1.6em" }, {
-    rotation: 15,
-    y: "3em",
-  }, 0);
-  tl.fromTo(".c-img-contain.product-control", { opacity: 1 }, { opacity: 0 }, 0.2);
+  tl.fromTo(
+    ".c-img-contain.product-location",
+    { y: "-48.8em" },
+    { y: "13.5em", ease: "none" }
+  );
+  tl.fromTo(
+    ".c-img-contain.product-control",
+    { rotation: 7, y: "1.6em" },
+    {
+      rotation: 15,
+      y: "3em",
+    },
+    0
+  );
+  tl.fromTo(
+    ".c-img-contain.product-control",
+    { opacity: 1 },
+    { opacity: 0 },
+    0.2
+  );
 
   tl.fromTo(".c-block-title_lt.featured", { opacity: 0 }, { opacity: 1 }, 0.4);
   tl.fromTo(".c-block-sub.featured", { opacity: 0 }, { opacity: 1 }, 0.4);
-
 }
 
 // --- TEAM SECTION - THEME SWITCH
@@ -260,7 +271,9 @@ function teamThemeSwitch() {
       start: "30% bottom",
       end: "bottom center",
       onEnter: function () {
-        document.querySelector(".c-section.team").setAttribute("data-theme", "light");
+        document
+          .querySelector(".c-section.team")
+          .setAttribute("data-theme", "light");
       },
     },
   });
@@ -268,95 +281,10 @@ function teamThemeSwitch() {
 
 /// --- TEAM SECTION - THEME SWITCH MOBILE
 function teamThemeSwitchMobile() {
-  // $(window).resize(function () {
-  //   if ($(window).width() < 992) {
-  //     $('.c-section.team').attr('data-theme', 'light');
-  //   } else {
-  //     $('.c-section.team').removeAttr('data-theme');
-  //   }
-  // });
-  $('.c-section.team').attr('data-theme', 'light');
+  $(".c-section.team").attr("data-theme", "light");
 }
 
 // --- HEADER - DYNAMIC ACTIVE LINK
-// function headerDynamicActiveLink() {
-//   let activeEl = $(".c-nav-active");
-
-//   $(".c-section").each(function () {
-//     let id = $(this).attr("id");
-
-//     ScrollTrigger.create({
-//       trigger: this,
-//       start: "-10% top",
-//       end: "bottom center",
-//       onToggle: ({ isActive }) => {
-//         if (isActive) {
-//           updateActiveNavLink(id);
-//         }
-//       }
-//     });
-//   });
-
-//   function updateActiveNavLink(id) {
-//     let navLink = $(`.c-nav-link[href="#${id}"]`);
-//     if (navLink.length > 0) {
-//       let state = Flip.getState(activeEl);
-//       activeEl.appendTo(navLink);
-//       Flip.from(state, {
-//         duration: 0.4,
-//         ease: "power2.inOut"
-//       });
-//     }
-//   }
-// }
-
-//
-// function headerDynamicActiveLink() {
-//   let activeEl = $(".c-nav-active");
-//   let navLinks = $(".c-nav-link");
-//   let sections = $(".c-section");
-
-//   navLinks.on("click", function () {
-//     let state = Flip.getState(activeEl);
-//     activeEl.appendTo($(this));
-//     Flip.from(state, {
-//       duration: 0.4,
-//       ease: "power2.inOut"
-//     });
-//   });
-
-//   sections.each(function () {
-//     let sectionID = $(this).attr("id");
-//     ScrollTrigger.create({
-//       trigger: this,
-//       start: "top 50%",
-//       end: "bottom 50%",
-//       onEnter: function () {
-//         let targetLink = $('.c-nav-link[href="/#' + sectionID + '"]');
-//         if (targetLink.length > 0) {
-//           let state = Flip.getState(activeEl);
-//           activeEl.appendTo(targetLink);
-//           Flip.from(state, {
-//             duration: 0.4,
-//             ease: "power2.inOut"
-//           });
-//         }
-//       },
-//       onEnterBack: function () {
-//         let targetLink = $('.c-nav-link[href="/#' + sectionID + '"]');
-//         if (targetLink.length > 0) {
-//           let state = Flip.getState(activeEl);
-//           activeEl.appendTo(targetLink);
-//           Flip.from(state, {
-//             duration: 0.4,
-//             ease: "power2.inOut"
-//           });
-//         }
-//       }
-//     });
-//   });
-// }
-
 function headerDynamicActiveLink() {
   let activeEl = $(".c-nav-active");
   let navLinks = $(".c-nav-link");
@@ -373,8 +301,8 @@ function headerDynamicActiveLink() {
       onComplete: function () {
         setTimeout(function () {
           isClickScrolling = false;
-        }, 700); // Adjust this timeout based on your scroll duration
-      }
+        }, 700);
+      },
     });
   });
 
@@ -391,7 +319,7 @@ function headerDynamicActiveLink() {
           activeEl.appendTo(targetLink);
           Flip.from(state, {
             duration: 0.4,
-            ease: "power2.inOut"
+            ease: "power2.inOut",
           });
         }
       },
@@ -402,10 +330,10 @@ function headerDynamicActiveLink() {
           activeEl.appendTo(targetLink);
           Flip.from(state, {
             duration: 0.4,
-            ease: "power2.inOut"
+            ease: "power2.inOut",
           });
         }
-      }
+      },
     });
   });
 }
@@ -413,28 +341,25 @@ function headerDynamicActiveLink() {
 // --- HEADER DROPDOWN
 function headerDropdown() {
   $(".c-dropdown-wrap").each(function () {
-
     let buttonEl = $(this).find(".c-btn");
     let dropdownEl = $(this).find(".c-dropdown");
     let buttonArrow = $(this).find(".c-icon.nav-arrow");
 
-    let tl = gsap.timeline(
-    {
+    let tl = gsap.timeline({
       paused: true,
       defaults: {
         ease: "power3.inOut",
-        duration: 0.8
-      }
-    })
+        duration: 0.8,
+      },
+    });
 
     gsap.set(dropdownEl, {
       autoAlpha: 1,
-      clipPath: "inset(0% 0% 100% 0%)"
+      clipPath: "inset(0% 0% 100% 0%)",
     });
 
     tl.to(dropdownEl, {
-      // clipPath: "inset(0% 0% 0% 0%)",
-      clipPath: "inset(0% 0% 0% 0%)"
+      clipPath: "inset(0% 0% 0% 0%)",
     });
 
     tl.to(buttonArrow, { rotate: 180 }, 0);
@@ -453,7 +378,6 @@ function headerDropdown() {
         $(".c-btn.is-open").click();
       }
     });
-
   });
 }
 
@@ -467,15 +391,15 @@ function dropdownHover() {
       paused: true,
       defaults: {
         ease: "power4.inOut",
-        duration: 0.8
-      }
+        duration: 0.8,
+      },
     });
 
-    gsap.set(iconArrow, { x: -6 })
+    gsap.set(iconArrow, { x: -6 });
 
     tl.to(iconCircle, { width: 16, height: 16 });
     tl.to(iconArrow, { autoAlpha: 1, x: 0 }, 0);
-    tl.to($(this), { backgroundColor: "rgba(217, 217, 217, 0.10)" }, 0)
+    tl.to($(this), { backgroundColor: "rgba(217, 217, 217, 0.10)" }, 0);
 
     $(this).on("mouseenter", function () {
       tl.restart();
@@ -498,7 +422,6 @@ function teamPanel() {
     let panelTrigger = $(this).find(".c-team-panel-link");
 
     if (panelBio.length == 0) {
-
     }
 
     let tl = gsap.timeline({
@@ -511,16 +434,19 @@ function teamPanel() {
 
     gsap.set(panelEl, {
       autoAlpha: 1,
-      transformOrigin: "center center"
+      transformOrigin: "center center",
     });
     gsap.set(panelOverlay, { autoAlpha: 0 });
-    gsap.set(".c-team-panel-wrap", { autoAlpha: 1 })
-    gsap.set(panelOverlay, { pointerEvents: "auto" })
+    gsap.set(".c-team-panel-wrap", { autoAlpha: 1 });
+    gsap.set(panelOverlay, { pointerEvents: "auto" });
 
     tl.to(panelOverlay, { autoAlpha: 1 });
     tl.fromTo(
-      panelEl, { clipPath: "inset(50% 50% 50% 50% round 1.5em)" }, { clipPath: "inset(0% 0% 0% 0% round 1.5em)" },
-      0);
+      panelEl,
+      { clipPath: "inset(50% 50% 50% 50% round 1.5em)" },
+      { clipPath: "inset(0% 0% 0% 0% round 1.5em)" },
+      0
+    );
 
     if (panelBio.length == 0) {
       panelTrigger.on("click", function () {
@@ -553,7 +479,9 @@ function emptyParagraphs() {
   $(".t-rich-text p").each(function () {
     if ($(this).text().length < 2) {
       $(this).text(function () {
-        return $(this).text().replace(/(^[\s\u200d]*$)/g, 'removeEmptyParagraph');
+        return $(this)
+          .text()
+          .replace(/(^[\s\u200d]*$)/g, "removeEmptyParagraph");
       });
     }
   });
@@ -571,7 +499,6 @@ function footerStructure() {
 
 // --- HEADER MOBILE
 function headerMobile() {
-
   let headerEl = $(".c-header_center");
   let headerNav = $(".c-header-nav");
   let contactButton = $(".c-header-contact");
@@ -581,14 +508,12 @@ function headerMobile() {
 
   contactButton.appendTo(headerNav);
 
-  let tl = gsap.timeline({ paused: true, defaults: { ease: "power3.inOut", duration: 0.6 } });
+  let tl = gsap.timeline({
+    paused: true,
+    defaults: { ease: "power3.inOut", duration: 0.6 },
+  });
 
-  // gsap.set(headerEl, { autoAlpha: 1 });
   gsap.set(headerEl, { height: 0 });
-
-  // tl.from(
-  // headerEl, { clipPath: "inset(0% 0% 100% 100% round 1em)" }, { clipPath: "inset(0% 0% 0% 0% round 1em)" }
-  // );
 
   tl.to(headerEl, { autoAlpha: 1, height: "auto" });
 
@@ -614,10 +539,12 @@ function headerMobile() {
 
 // --- LOADER
 function loader() {
-
   let tl = gsap.timeline({ defaults: { ease: panelEase, duration: 1.6 } });
 
-  gsap.set(".c-img-contain.hero-bg", { clipPath: "inset(100% 0% 0% 0%)", autoAlpha: 1 });
+  gsap.set(".c-img-contain.hero-bg", {
+    clipPath: "inset(100% 0% 0% 0%)",
+    autoAlpha: 1,
+  });
   gsap.set(".c-img-contain.hero-bg .c-img", { scale: 1.3 });
   gsap.set(".c-hm-hero_lt", { autoAlpha: 1 });
   gsap.set(".c-hm-hero_lt .char", { autoAlpha: 0, yPercent: 60 });
@@ -629,18 +556,7 @@ function loader() {
 
   tl.to(".c-img-contain.hero-bg .c-img", { scale: 1, duration: 2 }, "<");
 
-  tl.to(".c-shape-wrap", { autoAlpha: 1 }, "<")
-
-  // tl.to(".c-hm-hero_lt .char", {
-  //     autoAlpha: 1,
-  //     duration: 1,
-  //     yPercent: 0,
-  //     stagger: {
-  //       from: "start",
-  //       each: 0.02
-  //     }
-  //   },
-  //   0);
+  tl.to(".c-shape-wrap", { autoAlpha: 1 }, "<");
 
   tl.fromTo(
     ".c-hm-hero_lt .char",
@@ -663,7 +579,7 @@ function loader() {
     0
   );
 
-  tl.to(".c-hm-hero_rt", { yPercent: 0, autoAlpha: 1 }, "<0.2")
+  tl.to(".c-hm-hero_rt", { yPercent: 0, autoAlpha: 1 }, "<0.2");
   tl.to(".c-header", { autoAlpha: 1 }, "<0.4");
 }
 
@@ -694,12 +610,12 @@ function modal() {
 }
 
 // --- TEAM SECTION - LOCAL STORAGE ATTR CHECKER
-if (!sessionStorage.getItem('visitedHomepage')) {
+if (!sessionStorage.getItem("visitedHomepage")) {
   // If not visited before, remove the attribute
-  $('.c-section.team').removeAttr('data-theme');
+  $(".c-section.team").removeAttr("data-theme");
 
   // Mark that the user has visited the homepage
-  sessionStorage.setItem('visitedHomepage', true);
+  sessionStorage.setItem("visitedHomepage", true);
 }
 
 // --- PAGES
@@ -745,11 +661,11 @@ mm.add("(max-width: 991px)", () => {
     $("[terms-link]").appendTo("[terms-desktop-location]");
     $("[year-txt]").prependTo("[year-desktop-location]");
     $("[site-by-txt]").text("Site By PaperTiger");
-    $("[year-txt]").appendTo("[year-tablet-location]")
+    $("[year-txt]").appendTo("[year-tablet-location]");
     $(".c-header-contact").appendTo(".c-header_rt");
     $(".c-nav-btn").unbind();
     $(".c-nav-btn").removeClass("is-open");
     $(".c-nav-btn .t-micro-1").text("menu");
-    $('.c-section.team').removeAttr('data-theme');
+    $(".c-section.team").removeAttr("data-theme");
   };
 });
