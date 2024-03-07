@@ -652,16 +652,9 @@ mm.add("(min-width: 992px)", () => {
 
 // --- MATCHMEDIA - TABLET AND MOBILE
 mm.add("(max-width: 991px)", () => {
-  footerStructure();
   headerMobile();
   teamThemeSwitchMobile();
   return () => {
-    $("[terms-desktop-location]").css("display", "flex");
-    $("[year-tablet-location]").css("display", "flex");
-    $("[terms-link]").appendTo("[terms-desktop-location]");
-    $("[year-txt]").prependTo("[year-desktop-location]");
-    $("[site-by-txt]").text("Site By PaperTiger");
-    $("[year-txt]").appendTo("[year-tablet-location]");
     $(".c-header-contact").appendTo(".c-header_rt");
     $(".c-nav-btn").unbind();
     $(".c-nav-btn").removeClass("is-open");
