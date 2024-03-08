@@ -609,14 +609,6 @@ function modal() {
   });
 }
 
-// --- TEAM SECTION - LOCAL STORAGE ATTR CHECKER
-// if (!(window.location.href.indexOf("/made-in-webflow/") > -1)) {
-//   if (!sessionStorage.getItem("visitedHomepage")) {
-//     $(".c-section.team").removeAttr("data-theme");
-//     sessionStorage.setItem("visitedHomepage", true);
-//   }
-// }
-
 // --- PAGES
 let homePage = document.querySelector("[home-page]");
 
