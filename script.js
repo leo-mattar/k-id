@@ -610,12 +610,11 @@ function modal() {
 }
 
 // --- TEAM SECTION - LOCAL STORAGE ATTR CHECKER
-if (!sessionStorage.getItem("visitedHomepage")) {
-  // If not visited before, remove the attribute
-  $(".c-section.team").removeAttr("data-theme");
-
-  // Mark that the user has visited the homepage
-  sessionStorage.setItem("visitedHomepage", true);
+if (!(window.location.href.indexOf("/made-in-webflow/") > -1)) {
+  if (!sessionStorage.getItem("visitedHomepage")) {
+    $(".c-section.team").removeAttr("data-theme");
+    sessionStorage.setItem("visitedHomepage", true);
+  }
 }
 
 // --- PAGES
