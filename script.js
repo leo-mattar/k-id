@@ -635,7 +635,7 @@ mm.add("(min-width: 992px)", () => {
   dropdownHover();
   fade();
   buttonHover();
-  teamThemeSwitch();
+  // teamThemeSwitch();
   return () => {
     //
   };
@@ -644,12 +644,12 @@ mm.add("(min-width: 992px)", () => {
 // --- MATCHMEDIA - TABLET AND MOBILE
 mm.add("(max-width: 991px)", () => {
   headerMobile();
-  teamThemeSwitchMobile();
+  // teamThemeSwitchMobile();
   return () => {
     $(".c-header-contact").appendTo(".c-header_rt");
     $(".c-nav-btn").unbind();
     $(".c-nav-btn").removeClass("is-open");
     $(".c-nav-btn .t-micro-1").text("menu");
-    $(".c-section.team").removeAttr("data-theme");
+    // $(".c-section.team").removeAttr("data-theme");
   };
 });
